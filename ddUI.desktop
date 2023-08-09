@@ -1,0 +1,7 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=ddUI
+Comment=dwm desktop user interface
+Exec=ddUI
+Icon=ddUI
+Type=XSession

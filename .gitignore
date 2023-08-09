@@ -1,5 +1,5 @@
 *.o
-dwm
-dwm-msg
+ddUI
+ddUI-msg
 config.h
 patches.h

@@ -95,7 +95,7 @@
  * https://gitlab.com/udiboy1209-suckless/dwm/-/commit/071f5063e8ac4280666828179f92788d893eea40#4b1a539194be7467cefbda22f675a3b7c19ceca7
  * https://dwm.suckless.org/patches/statuscolors/
  */
-#define BAR_POWERLINE_STATUS_PATCH 0
+#define BAR_POWERLINE_STATUS_PATCH 1
 
 /* Adds powerline arrows for the tags.
  * https://gitlab.com/udiboy1209-suckless/dwm/-/commit/071f5063e8ac4280666828179f92788d893eea40#4b1a539194be7467cefbda22f675a3b7c19ceca7
@@ -130,7 +130,7 @@
  *
  * https://dwm.suckless.org/patches/tag-previews/
  */
-#define BAR_TAGPREVIEW_PATCH 0
+#define BAR_TAGPREVIEW_PATCH 1
 
 /* Show status in bar */
 #define BAR_STATUS_PATCH 1
@@ -162,12 +162,12 @@
  * E.g. ^B5^ would use color5 as the background color.
  * https://dwm.suckless.org/patches/status2d/
  */
-#define BAR_STATUS2D_XRDB_TERMCOLORS_PATCH 0
+#define BAR_STATUS2D_XRDB_TERMCOLORS_PATCH 1
 
 /* The systray patch adds systray for the status bar.
  * https://dwm.suckless.org/patches/systray/
  */
-#define BAR_SYSTRAY_PATCH 0
+#define BAR_SYSTRAY_PATCH 1
 
 /* Show tag symbols in the bar. */
 #define BAR_TAGS_PATCH 1
@@ -423,7 +423,7 @@
  * Essentially this way the colors you use in your regular tty is "mirrored" to dwm.
  * https://dwm.suckless.org/patches/vtcolors/
  */
-#define BAR_VTCOLORS_PATCH 1
+#define BAR_VTCOLORS_PATCH 0
 
 /* This patch allows client windows to be hidden. This code was originally part of awesomebar,
  * but has been separated out so that other bar modules can take advantage of it.
@@ -485,7 +485,7 @@
  * than the original ~/.dwm folder.
  * https://dwm.suckless.org/patches/autostart/
  */
-#define AUTOSTART_PATCH 0
+#define AUTOSTART_PATCH 1
 
 /* By default, windows that are not visible when requesting a resize/move will not
  * get resized/moved. With this patch, they will.
@@ -550,7 +550,7 @@
  * then all processes from autostart array will be killed.
  * https://dwm.suckless.org/patches/cool_autostart/
  */
-#define COOL_AUTOSTART_PATCH 1
+#define COOL_AUTOSTART_PATCH 0
 
 /* The cyclelayouts patch lets you cycle through all your layouts.
  * https://dwm.suckless.org/patches/cyclelayouts/
@@ -1463,7 +1463,7 @@
 /* The default tile layout.
  * This can be optionally disabled in favour of other layouts.
  */
-#define TILE_LAYOUT 1
+#define TILE_LAYOUT 0
 
 /* Monocle layout (default).
  * This can be optionally disabled in favour of other layouts.

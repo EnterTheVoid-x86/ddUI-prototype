@@ -33,7 +33,7 @@ static const int smartgaps_fact          = 1;   /* gap factor when there is only
 #if AUTOSTART_PATCH
 static const char autostartblocksh[]     = "autostart_blocking.sh";
 static const char autostartsh[]          = "autostart.sh";
-static const char dwmdir[]               = "dwm";
+static const char dwmdir[]               = "ddUI";
 static const char localshare[]           = ".local/share";
 #endif // AUTOSTART_PATCH
 #if BAR_ANYBAR_PATCH
@@ -94,7 +94,8 @@ static const int horizpadbar             = 2;   /* horizontal padding for status
 static const int vertpadbar              = 0;   /* vertical padding for statusbar */
 #endif // BAR_STATUSPADDING_PATCH
 #if BAR_STATUSBUTTON_PATCH
-static const char buttonbar[]            = "<O>";
+static const char buttonbar[]            = "☰";
+static const char shutdownbar[]            = "⏻";
 #endif // BAR_STATUSBUTTON_PATCH
 #if BAR_SYSTRAY_PATCH
 static const unsigned int systrayspacing = 2;   /* systray spacing */
@@ -401,7 +402,7 @@ static const char *layoutmenu_cmd = "layoutmenu.sh";
 
 #if COOL_AUTOSTART_PATCH
 static const char *const autostart[] = {
-	"xrdb -merge ~/.Xresources", NULL,
+	"st", NULL,
 	NULL /* terminate */
 };
 #endif // COOL_AUTOSTART_PATCH
@@ -547,6 +548,7 @@ static const BarRule barrules[] = {
 	/* monitor   bar    alignment         widthfunc                 drawfunc                clickfunc                hoverfunc                name */
 	#if BAR_STATUSBUTTON_PATCH
 	{ -1,        0,     BAR_ALIGN_LEFT,   width_stbutton,           draw_stbutton,          click_stbutton,          NULL,                    "statusbutton" },
+	{ -1,        0,     BAR_ALIGN_RIGHT,   width_pwrbutton,          draw_pwrbutton,        click_pwrbutton,          NULL,                    "powerbutton" },
 	#endif // BAR_STATUSBUTTON_PATCH
 	#if BAR_POWERLINE_TAGS_PATCH
 	{  0,        0,     BAR_ALIGN_LEFT,   width_pwrl_tags,          draw_pwrl_tags,         click_pwrl_tags,         NULL,                    "powerline_tags" },
@@ -654,9 +656,9 @@ static const int scrollargs[][2] = {
 #if FLEXTILE_DELUXE_LAYOUT
 static const Layout layouts[] = {
 	/* symbol     arrange function, { nmaster, nstack, layout, master axis, stack axis, secondary stack axis, symbol func } */
-	{ "[]=",      flextile,         { -1, -1, SPLIT_VERTICAL, TOP_TO_BOTTOM, TOP_TO_BOTTOM, 0, NULL } }, // default tile layout
- 	{ "><>",      NULL,             {0} },    /* no layout function means floating behavior */
-	{ "[M]",      flextile,         { -1, -1, NO_SPLIT, MONOCLE, MONOCLE, 0, NULL } }, // monocle
+	{ "[M]",      flextile,         { -1, -1, NO_SPLIT, MONOCLE, MONOCLE, 0, NULL } }, // monocle, default layout
+	{ "[]=",      flextile,         { -1, -1, SPLIT_VERTICAL, TOP_TO_BOTTOM, TOP_TO_BOTTOM, 0, NULL } }, // tile layout
+ 	/* { "><>",      NULL,             {0} },    no layout function means floating behavior */
 	{ "|||",      flextile,         { -1, -1, SPLIT_VERTICAL, LEFT_TO_RIGHT, TOP_TO_BOTTOM, 0, NULL } }, // columns (col) layout
 	{ ">M>",      flextile,         { -1, -1, FLOATING_MASTER, LEFT_TO_RIGHT, LEFT_TO_RIGHT, 0, NULL } }, // floating master
 	{ "[D]",      flextile,         { -1, -1, SPLIT_VERTICAL, TOP_TO_BOTTOM, MONOCLE, 0, NULL } }, // deck
@@ -717,7 +719,6 @@ static const Layout layouts[] = {
 	#if TILE_LAYOUT
 	{ "[]=",      tile },    /* first entry is default */
 	#endif
-	{ "><>",      NULL },    /* no layout function means floating behavior */
 	#if MONOCLE_LAYOUT
 	{ "[M]",      monocle },
 	#endif
@@ -757,6 +758,7 @@ static const Layout layouts[] = {
 	#if NROWGRID_LAYOUT
 	{ "###",      nrowgrid },
 	#endif
+	{ "><>",      NULL },    /* no layout function means floating behavior */
 };
 #endif // FLEXTILE_DELUXE_LAYOUT
 
@@ -870,6 +872,8 @@ static const char *dmenucmd[] = {
 	NULL
 };
 static const char *termcmd[]  = { "st", NULL };
+static const char *startcmd[]  = { "ddUI-start", NULL };
+static const char *powercmd[]  = { "ddUI-shutdown", NULL };
 
 #if BAR_STATUSCMD_PATCH
 #if BAR_DWMBLOCKS_PATCH
@@ -878,9 +882,8 @@ static const char *termcmd[]  = { "st", NULL };
 #else
 /* commands spawned when clicking statusbar, the mouse button pressed is exported as BUTTON */
 static const StatusCmd statuscmds[] = {
-	{ "notify-send Volume$BUTTON", 1 },
-	{ "notify-send CPU$BUTTON", 2 },
-	{ "notify-send Battery$BUTTON", 3 },
+	{ "pavucontrol", 1 },
+	{ "st -e nmtui", 2 },
 };
 /* test the above with: xsetroot -name "$(printf '\x01Volume |\x02 CPU |\x03 Battery')" */
 static const char *statuscmd[] = { "/bin/sh", "-c", NULL, NULL };
@@ -1332,7 +1335,8 @@ static const Command commands[] = {
 static const Button buttons[] = {
 	/* click                event mask           button          function        argument */
 	#if BAR_STATUSBUTTON_PATCH
-	{ ClkButton,            0,                   Button1,        spawn,          {.v = dmenucmd } },
+	{ ClkButton,            0,                   Button1,        spawn,          {.v = startcmd } },
+	{ ClkPwrButton,         0,                   Button1,        spawn,          {.v = powercmd } },
 	#endif // BAR_STATUSBUTTON_PATCH
 	{ ClkLtSymbol,          0,                   Button1,        setlayout,      {0} },
 	#if BAR_LAYOUTMENU_PATCH
